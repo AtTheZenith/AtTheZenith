@@ -5,7 +5,9 @@ My socials: [![YouTube](https://img.shields.io/badge/-YouTube-FF0000?style=flat-
 
 ## Projects
 
-- [Ping Pong in Python](https://github.com/only-gamesense/ping-pong)
+- [Ping Pong in Python](https://github.com/AtTheZenith/ping-pong)
+
+- [Bot for Web Cookie Clicker](https://github.com/AtTheZenith/ccwebbot)
 
 ## Contributor @
 
