@@ -9,7 +9,7 @@ My socials: [![YouTube](https://img.shields.io/badge/-YouTube-FF0000?style=flat-
 
 - [Bot for Web Cookie Clicker](https://github.com/AtTheZenith/ccwebbot)
   
-- [My website](https://github.com/AtTheZenith/atthezenith.github.io)
+- [My Website](https://github.com/AtTheZenith/atthezenith.github.io)
 
 ## Contributor @
 
