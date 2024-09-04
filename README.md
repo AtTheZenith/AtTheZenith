@@ -11,6 +11,8 @@ My socials: [![YouTube](https://img.shields.io/badge/-YouTube-FF0000?style=flat-
   
 - [My Website](https://github.com/AtTheZenith/atthezenith.github.io)
 
+- [Tic-Tac-Toe terminal port in Python](https://github.com/AtTheZenith/tic-tac-toe)
+
 ## Contributor @
 
 - Night RBX (Private at the moment)
