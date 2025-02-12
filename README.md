@@ -1,5 +1,5 @@
 <h1 align='center'>
-  This is Zenith
+  this is zenith
 </h1>
 
 <p align='center'>
