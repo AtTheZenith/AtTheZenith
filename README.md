@@ -14,7 +14,7 @@
   </a>
 </p>
 
-- **Languages:** Lua, Python, Basic C++, HTML
+- **Languages:** Lua, Python, Basic C++, Basic HTML
 
 <h2 align='center'>
   Projects
