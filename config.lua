@@ -65,16 +65,100 @@ FUNCTIONALITY PLUGINS
 lvim.keys.normal_mode["n"] = ":bnext<CR>"
 lvim.keys.normal_mode["<C-n>"] = ":bprevious<CR>"
 
+-- Set Spectre start key
+lvim.builtin.which_key.mappings.s["s"] = { ":Spectre<CR>", "Spectre (Find/Replace)" }
+
 -- Set transparent window
 -- lvim.transparent_window = true
 
 -- Theme
-lvim.colorscheme = "nightfly"
+lvim.colorscheme = "solarized"
 
 -- Status-bar {{{{
 
 lvim.builtin.lualine.style = "default"
-lvim.builtin.lualine.options.theme = "night-owl"
+
+local clients_lsp = function()
+	local bufnr = vim.api.nvim_get_current_buf()
+
+	local clients = vim.lsp.get_clients()
+	if next(clients) == nil then
+		return ""
+	end
+
+  local c = {}
+	for _, client in pairs(clients) do
+		table.insert(c, client.name)
+	end
+	return " LSP: " .. table.concat(c, " | ")
+end
+
+lvim.builtin.lualine.options = {
+	theme = require('lualine.themes.solarized_dark'),
+	component_separators = ">",
+	section_separators = { left = "", right = "" },
+	disabled_filetypes = { "alpha", "Outline" },
+}
+
+lvim.builtin.lualine.sections = {
+	lualine_a = {
+		{
+      "mode",
+      separator = { left = "", right = "" },
+      icon = "",
+      padding = { left = 2, right = 1 }
+    },
+	},
+	lualine_b = {
+		{
+			"filetype",
+			icon_only = true,
+			padding = { left = 2, right = 0 },
+		},
+		{
+      "filename",
+      padding = { left = 1, right = 1}
+    },
+	},
+	lualine_c = {
+		{
+			"branch",
+			icon = "",
+		},
+		{
+  		"diff",
+			symbols = { added = " ", modified = " ", removed = " " },
+			colored = false,
+		},
+	},
+	lualine_x = {
+		{
+			"diagnostics",
+			symbols = { error = " ", warn = " ", info = " ", hint = " " },
+			update_in_insert = true,
+		},
+	},
+	lualine_y = { clients_lsp },
+	lualine_z = {
+		{
+      "location",
+      separator = { left = " ", right = "" },
+      icon = "",
+      padding = { left = 1, right = 2 }
+    },
+	},
+}
+
+lvim.builtin.lualine.inactive_sections = {
+	lualine_a = { "filename" },
+	lualine_b = {},
+	lualine_c = {},
+	lualine_x = {},
+	lualine_y = {},
+	lualine_z = { "location" },
+}
+
+lvim.builtin.lualine.extensions = { "toggleterm", "trouble", "nvim-tree", "fugitive" }
 
 -- }}}}
 
@@ -122,11 +206,20 @@ lvim.plugins = {
       use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
       respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
       cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-      easing_function = nil,        -- Default easing function
+      easing_function = nil,       -- Default easing function
       pre_hook = nil,              -- Function to run before the scrolling animation starts
-      post_hook = nil,              -- Function to run after the scrolling animation ends
+      post_hook = nil,             -- Function to run after the scrolling animation ends
       })
     end
+  },
+
+  --
+  {
+    "nvim-pack/nvim-spectre",
+    event = "BufRead",
+    config = function()
+      require("spectre").setup()
+    end,
   },
 
   -- Provides speedy color highligting
@@ -143,6 +236,27 @@ lvim.plugins = {
             css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
             })
     end,
+  },
+
+  -- Git Wrapper
+  {
+    "tpope/vim-fugitive",
+    cmd = {
+      "G",
+      "Git",
+      "Gdiffsplit",
+      "Gread",
+      "Gwrite",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit"
+    },
+    ft = {"fugitive"}
   },
 
   -- Type hints when you type
