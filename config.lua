@@ -68,19 +68,21 @@ lvim.keys.normal_mode["<C-n>"] = ":bprevious<CR>"
 -- Set Spectre start key
 lvim.builtin.which_key.mappings.s["s"] = { ":Spectre<CR>", "Spectre (Find/Replace)" }
 
+-- Set Terminal keybind and remove a keybind for balance
+lvim.builtin.which_key.mappings.f = nil
+lvim.builtin.which_key.mappings.t = { ":ToggleTerm<CR>", "Open Terminal (Fullscreen)" }
+
 -- Set transparent window
 -- lvim.transparent_window = true
 
 -- Theme
-lvim.colorscheme = "solarized"
+lvim.colorscheme = "kanagawa-wave"
 
 -- Status-bar {{{{
 
 lvim.builtin.lualine.style = "default"
 
 local clients_lsp = function()
-	local bufnr = vim.api.nvim_get_current_buf()
-
 	local clients = vim.lsp.get_clients()
 	if next(clients) == nil then
 		return ""
@@ -90,11 +92,11 @@ local clients_lsp = function()
 	for _, client in pairs(clients) do
 		table.insert(c, client.name)
 	end
-	return " LSP: " .. table.concat(c, " | ")
+	return "  LSP: " .. table.concat(c, " | ")
 end
 
 lvim.builtin.lualine.options = {
-	theme = require('lualine.themes.solarized_dark'),
+	theme = require('lualine.themes.iceberg_dark'),
 	component_separators = ">",
 	section_separators = { left = "", right = "" },
 	disabled_filetypes = { "alpha", "Outline" },
@@ -213,12 +215,21 @@ lvim.plugins = {
     end
   },
 
-  --
+  -- Search-and-Replace
   {
     "nvim-pack/nvim-spectre",
     event = "BufRead",
     config = function()
       require("spectre").setup()
+    end,
+  },
+
+  -- Cursor Solution
+  {
+    "ggandor/leap.nvim",
+    name = "leap",
+    config = function()
+      require("leap").add_default_mappings()
     end,
   },
 
